@@ -32,7 +32,7 @@ def parse(raw_file='data/mobiliario_monumental.csv', delimiter=','):
 
 @app.route('/statues/')
 def statues():
-    return jsonify(items=parse())
+    return jsonify(statues=parse())
 
 @app.route('/statues/<int:number>')
 def statue(number):
@@ -45,7 +45,7 @@ def statue(number):
         'not': isnot,
     }
 
-    return jsonify(items=result)
+    return jsonify(**result)
 
 if __name__ == "__main__":
     app.run(debug=True)
