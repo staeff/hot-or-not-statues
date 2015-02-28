@@ -1,15 +1,29 @@
-.buttons {
-  list-style: none; }
-
 .button {
   border: 1px solid gray;
   cursor: pointer;
-  float: left;
-  padding: 0 5px; }
-  .button.not {
-    background: blue;
-    color: white; }
-  .button.hot {
-    margin-left: 10px;
+  padding: 0 5px;
+  float: left; }
+
+.vote {
+  list-style: none; }
+  .vote .checked.button {
+    background: white; }
+  .vote .disabled.button {
+    cursor: default; }
+  .vote .hot {
     background: red;
     color: white; }
+    .vote .hot.checked {
+      color: red; }
+  .vote .not {
+    margin-left: 10px;
+    background: blue;
+    color: white; }
+    .vote .not.checked {
+      color: blue; }
+
+.results {
+  clear: both;
+  padding-top: 10px; }
+  .results.hidden {
+    visibility: hidden; }

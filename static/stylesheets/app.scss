@@ -1,21 +1,46 @@
-.buttons {
-    list-style: none;
-}
-
 .button {
     border: 1px solid gray;
     cursor: pointer;
-    float: left;
     padding: 0 5px;
+    float: left;
+}
 
-    &.not {
-        background: blue;
-        color: white;
+.vote {
+    list-style: none;
+
+    .checked.button {
+        background: white;
     }
 
-    &.hot {
-        margin-left: 10px;
+    .disabled.button {
+        cursor: default;
+    }
+
+    .hot {
         background: red;
         color: white;
+
+        &.checked {
+            color: red;
+        }
+    }
+
+    .not {
+        margin-left: 10px;
+        background: blue;
+        color: white;
+
+        &.checked {
+            color: blue;
+        }
+    }
+}
+
+.results {
+    clear: both;
+    padding-top: 10px;
+
+    &.hidden {
+        visibility: hidden;
     }
 }

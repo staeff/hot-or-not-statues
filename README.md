@@ -9,5 +9,5 @@ Development hints
 
   * To keep CSS up to date:
 
-        $ cd stylesheets
+        $ cd static/stylesheets
         $ sass --watch app.scss:app.css

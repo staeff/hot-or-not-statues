@@ -6,4 +6,4 @@ require.config({
     baseUrl: 'scripts'
 });
 
-require(['main']);
+require(['vote-buttons']);
