@@ -2,16 +2,29 @@
 
 /*global define */
 
-define(['results'], function (results) {
+define(['current-statue'], function (currentStatue) {
     'use strict';
 
-    var show;
+    var show, hide, voteButtons;
 
     show = function () {
         document.querySelector('.results').classList.remove('hidden');
     };
 
-    return {
-        show: show
+    hide = function () {
+        document.querySelector('.results').classList.add('hidden');
     };
+
+    document.querySelector('.results .next.button').onclick = function () {
+        currentStatue.replaceWithNext();
+        voteButtons.reset();
+        hide();
+    };
+
+    return Object.create(null, {
+        show: {value: show},
+        voteButtons: {set: function (x) {
+            voteButtons = x;
+        }}
+    });
 });

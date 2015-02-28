@@ -11,3 +11,5 @@ Development hints
 
         $ cd static/stylesheets
         $ sass --watch app.scss:app.css
+
+  * Test: Does the frontend skip images that don’t load?
