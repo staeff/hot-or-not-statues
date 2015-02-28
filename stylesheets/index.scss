@@ -1,0 +1,21 @@
+.buttons {
+    list-style: none;
+}
+
+.button {
+    border: 1px solid gray;
+    cursor: pointer;
+    float: left;
+    padding: 0 5px;
+
+    &.not {
+        background: blue;
+        color: white;
+    }
+
+    &.hot {
+        margin-left: 10px;
+        background: red;
+        color: white;
+    }
+}
