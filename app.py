@@ -69,32 +69,33 @@ def add_cors(resp):
 def statues():
     return jsonify(statues=parse())
 
-@app.route('/statues/<int:number>', methods=['POST'])
+@app.route('/statues/<int:number>', methods=['GET', 'POST'])
 def statue(number):
     # import ipdb; ipdb.set_trace()
 
-    uservote = request.json['vote']
     db_vote = Votes.query.get(number)
     if db_vote is None:
         result = {'error': 'ID {0} is not available.'.format(number)}
         return jsonify(**result), 404
 
-    if uservote == 'hot':
-        db_vote.ishot += 1
-        db.session.commit()
-    elif uservote == 'not':
-        db_vote.isnot += 1
-        db.session.commit()
-    else:
-        result = {'error': '{0} is no valid choice'.format(uservote)}
-        return jsonify(**result), 404
+    if request.method == 'POST':
+        uservote = request.json['vote']
+        if uservote == 'hot':
+            db_vote.ishot += 1
+            db.session.commit()
+        elif uservote == 'not':
+            db_vote.isnot += 1
+            db.session.commit()
+        else:
+            result = {'error': '{0} is no valid choice'.format(uservote)}
+            return jsonify(**result), 404
 
     result = {
         'id': db_vote.id,
         'hot': db_vote.ishot,
         'not': db_vote.isnot,
-        'uservote': uservote
     }
+
     return jsonify(**result)
 
 

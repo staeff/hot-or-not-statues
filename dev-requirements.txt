@@ -3,3 +3,5 @@ ecdsa==0.13
 paramiko==1.15.2
 pycrypto==2.6.1
 wsgiref==0.1.2
+ipdb==0.8
+ipython==3.0.0
