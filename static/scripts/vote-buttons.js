@@ -9,10 +9,15 @@ define([
 
     var onVote, check, disable, buttonEl, onClick, uncheck, uncheckButton, o,
         disableButton, enableButton, enable, statue, onVoteCountLoad,
-        voteCount, formattedVoteCount, incrementVoteCount;
+        voteCount, formattedVoteCount, incrementVoteCount,
+        correctVoteCountIsLoaded;
 
     buttonEl = function (type) {
         return document.querySelector('.vote .' + type + '.button');
+    };
+
+    correctVoteCountIsLoaded = function () {
+        return voteCount && voteCount.id - statue.ID === 0;
     };
 
     disableButton = function (type) {
@@ -24,7 +29,7 @@ define([
     };
 
     formattedVoteCount = function (type) {
-        if (!voteCount || voteCount.id - statue.ID !== 0) {
+        if (!correctVoteCountIsLoaded()) {
             return '?%'; // no data available
         }
         return Math.round(100 * voteCount[type] /
@@ -32,9 +37,8 @@ define([
     };
 
     incrementVoteCount = function (type) {
-        votePoster.post(statue, type);
-
-        if (voteCount && voteCount.id - statue.ID === 0) {
+        if (correctVoteCountIsLoaded()) {
+            votePoster.post(statue, type);
             voteCount[type] += 1;
         }
     };
