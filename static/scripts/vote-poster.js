@@ -11,7 +11,6 @@ define(function () {
         request.open('post', 'http://honfs.wtf/statues/' + statue.ID, true);
         request.setRequestHeader("Content-type", "application/json");
         request.send(JSON.stringify({
-            'id': statue.ID,
             'vote': type
         }));
     };
