@@ -2,9 +2,20 @@
 # coding=utf-8
 
 from flask import Flask, jsonify
+from flask.ext.sqlalchemy import SQLAlchemy
 import csv
+import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db')
+db = SQLAlchemy(app)
+
+class Votes(db.Model):
+    __tablename__ = 'votes'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    ishot = db.Column(db.Integer)
+    isnot = db.Column(db.Integer)
 
 def parse(raw_file='data/mobiliario_monumental.csv', delimiter=','):
     """Parses a raw CSV file to a JSON-like object"""
@@ -36,13 +47,12 @@ def statues():
 
 @app.route('/statues/<int:number>')
 def statue(number):
-    ishot = 3143 # "gethotquery"
-    isnot = 123  # "getnotquery"
+    vote = Votes.query.get(number)
 
     result = {
-        'id': number,
-        'hot': ishot,
-        'not': isnot,
+        'id': vote.id,
+        'hot': vote.ishot,
+        'not': vote.isnot,
     }
 
     return jsonify(**result)
