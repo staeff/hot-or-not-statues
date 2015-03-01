@@ -1,30 +1,52 @@
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("../vendor/Roboto-Condensed/RobotoCondensed-Bold.ttf");
+  font-weight: bold; }
 body {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
   background: white;
   padding: 10px; }
 
+h1 {
+  margin-left: 440px;
+  background-image: url(../images/hot-or-not-logo.svg);
+  background-size: 100px;
+  width: 100px;
+  height: 18.5px;
+  color: transparent;
+  margin-bottom: 10px;
+  overflow: hidden; }
+
 .button {
-  border: 1px solid gray;
   cursor: pointer;
-  padding: 0 5px;
   float: left; }
 
 .vote {
-  list-style: none; }
-  .vote .checked.button {
-    background: white; }
-  .vote .disabled.button {
-    cursor: default; }
-  .vote .hot {
-    background: red;
-    color: white; }
-    .vote .hot.checked {
-      color: red; }
-  .vote .not {
-    margin-left: 10px;
-    background: blue;
-    color: white; }
-    .vote .not.checked {
-      color: blue; }
+  list-style: none;
+  margin-top: 15px; }
+  .vote .button {
+    color: transparent;
+    overflow: hidden;
+    width: 250px;
+    height: 120px;
+    background-size: 250px;
+    line-height: 115px;
+    font-size: 80px; }
+    .vote .button.disabled {
+      cursor: default; }
+    .vote .button.checked {
+      color: white;
+      text-align: center; }
+    .vote .button.hot {
+      background-image: url(../images/hot-button.svg); }
+      .vote .button.hot.checked {
+        background-image: url(../images/checked-hot-button.svg); }
+    .vote .button.not {
+      background-image: url(../images/not-button.svg);
+      margin-left: 40px; }
+      .vote .button.not.checked {
+        background-image: url(../images/checked-not-button.svg); }
 
 .results {
   clear: both;
@@ -36,11 +58,11 @@ body {
   width: 500px;
   height: 500px;
   overflow: hidden;
-  background: black;
+  background: #222;
   text-align: center;
   line-height: 500px;
   padding: 20px;
-  border-radius: 20px; }
+  border-radius: 5px; }
   .image-container .loader {
     color: white;
     height: 520px; }

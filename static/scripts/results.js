@@ -24,12 +24,13 @@ define(['current-statue'], function (currentStatue) {
     };
 
     document.querySelector('.results .next.button').onclick = function () {
-        currentStatue.onStatueLoad = onStatueLoad;
         currentStatue.replaceWithNext();
         voteButtons.uncheck();
         voteButtons.disable();
         hide();
     };
+
+    currentStatue.onStatueLoad = onStatueLoad;
 
     return Object.create(null, {
         show: {value: show},
