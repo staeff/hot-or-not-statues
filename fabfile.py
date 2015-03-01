@@ -21,3 +21,7 @@ def deploy():
     # TODO graceful reloading
     # http://uwsgi-docs.readthedocs.org/en/latest/articles/TheArtOfGracefulReloading.html
     run('sudo /usr/bin/service uwsgi reload')
+
+    # fix messed up permissions (TODO figure out wtf)
+    run('chmod 777 /srv/honfs')
+    run('sudo /bin/chown www-data:www-data /srv/honfs/app.db')
