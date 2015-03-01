@@ -16,8 +16,10 @@ define(['current-statue'], function (currentStatue) {
     };
 
     document.querySelector('.results .next.button').onclick = function () {
+        currentStatue.onImageLoad = voteButtons.enable;
         currentStatue.replaceWithNext();
-        voteButtons.reset();
+        voteButtons.uncheck();
+        voteButtons.disable();
         hide();
     };
 
