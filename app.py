@@ -57,10 +57,13 @@ def statue(number):
 
     if uservote == 'hot':
         db_vote.ishot += 1
-        # update db
-    if uservote == 'not':
+        db.session.commit()
+    elif uservote == 'not':
         db_vote.isnot += 1
-        # update db
+        db.session.commit()
+    else:
+        result = {'error': '{0} is no valid choice'.format(uservote)}
+        return jsonify(**result), 404
 
     result = {
         'id': db_vote.id,
