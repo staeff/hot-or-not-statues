@@ -34,10 +34,9 @@ define(['statues-loader', 'p'], function (statuesLoader, p) {
         var statue = statues[currentIndex];
 
         if (pCounter === 0) {
-            statue = p;
-        } else {
-            pCounter -= 1;
+            statue = p.statue;
         }
+        pCounter -= 1;
 
         imageEl.onerror = replaceWithNext;
         imageEl.onload = function () {
