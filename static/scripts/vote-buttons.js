@@ -2,14 +2,22 @@
 
 /*global define */
 
-define(['./results'], function (results) {
+define([
+    './results', './vote-count-loader', './vote-poster'
+], function (results, voteCountLoader, votePoster) {
     'use strict';
 
     var onVote, check, disable, buttonEl, onClick, uncheck, uncheckButton, o,
-        disableButton, enableButton, enable;
+        disableButton, enableButton, enable, statue, onVoteCountLoad,
+        voteCount, formattedVoteCount, incrementVoteCount,
+        correctVoteCountIsLoaded;
 
     buttonEl = function (type) {
         return document.querySelector('.vote .' + type + '.button');
+    };
+
+    correctVoteCountIsLoaded = function () {
+        return voteCount && voteCount.id - statue.ID === 0;
     };
 
     disableButton = function (type) {
@@ -20,11 +28,30 @@ define(['./results'], function (results) {
         buttonEl(type).classList.add('checked');
     };
 
+    formattedVoteCount = function (type) {
+        if (!correctVoteCountIsLoaded()) {
+            return '?%'; // no data available
+        }
+        return Math.round(100 * voteCount[type] /
+                          (voteCount.hot + voteCount.not)) + '%';
+    };
+
+    incrementVoteCount = function (type) {
+        if (correctVoteCountIsLoaded()) {
+            votePoster.post(statue, type);
+            voteCount[type] += 1;
+        }
+    };
+
     onVote = function (type) {
-        check(type);
         results.show();
         disable();
-        buttonEl(type).textContent = '\u2713';
+        incrementVoteCount(type);
+
+        ['not', 'hot'].forEach(function (type) {
+            check(type);
+            buttonEl(type).textContent = formattedVoteCount(type);
+        });
     };
 
     onClick = function (type) {
@@ -59,6 +86,10 @@ define(['./results'], function (results) {
         });
     };
 
+    onVoteCountLoad = function (x) {
+        voteCount = x;
+    };
+
     ['not', 'hot'].forEach(function (type) {
         document.querySelector('.vote .' + type + '.button').onclick =
             function () {
@@ -66,11 +97,17 @@ define(['./results'], function (results) {
             };
     });
 
-    o = {
-        uncheck: uncheck,
-        disable: disable,
-        enable: enable
-    };
+    voteCountLoader.onLoad = onVoteCountLoad;
+
+    o = Object.create(null, {
+        uncheck: {value: uncheck},
+        disable: {value: disable},
+        enable: {value: enable},
+        statue: {set: function (x) {
+            statue = x;
+            voteCountLoader.load(statue);
+        }}
+    });
 
     results.voteButtons = o;
 

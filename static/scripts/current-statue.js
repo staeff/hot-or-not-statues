@@ -2,13 +2,13 @@
 
 /*global define */
 
-define(['statues'], function (statues) {
+define(['statues-loader', 'p'], function (statuesLoader, p) {
     'use strict';
 
     var replaceWithNext, updateImageUrl, currentIndex,
         imageEl = document.querySelector('.image-container img.statue'),
         loaderEl = document.querySelector('.image-container .loader'),
-        hideLoader, showLoader, onStatueLoad;
+        hideLoader, showLoader, onStatueLoad, statues, pCounter = 10;
 
     hideLoader = function () {
         loaderEl.classList.add('hidden');
@@ -32,15 +32,27 @@ define(['statues'], function (statues) {
 
     updateImageUrl = function () {
         var statue = statues[currentIndex];
+
+        if (pCounter === 0) {
+            statue = p;
+        } else {
+            pCounter -= 1;
+        }
+
         imageEl.onerror = replaceWithNext;
         imageEl.onload = function () {
             hideLoader();
             onStatueLoad(statue);
         };
-        imageEl.setAttribute('src', statues[currentIndex].IMAGEN);
+        imageEl.setAttribute('src', statue.IMAGEN);
     };
 
-    replaceWithNext();
+    statuesLoader.onLoad = function (response) {
+        statues = response.statues;
+        replaceWithNext();
+    };
+
+    statuesLoader.load();
 
     return Object.create(null, {
         replaceWithNext: {value: replaceWithNext},
