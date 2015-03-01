@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask.ext.sqlalchemy import SQLAlchemy
 import csv
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db') + "?check_same_thread=false"
 db = SQLAlchemy(app)
 
 class Votes(db.Model):
@@ -45,20 +45,30 @@ def parse(raw_file='data/mobiliario_monumental.csv', delimiter=','):
 def statues():
     return jsonify(statues=parse())
 
-@app.route('/statues/<int:number>')
+@app.route('/statues/<int:number>', methods=['POST'])
 def statue(number):
-    vote = Votes.query.get(number)
+    # import ipdb; ipdb.set_trace()
 
-    if vote:
-        result = {
-            'id': vote.id,
-            'hot': vote.ishot,
-            'not': vote.isnot,
-        }
-        return jsonify(**result)
-    else:
-        result = {'error': 'ID is not available.'}
+    uservote = request.json['vote']
+    db_vote = Votes.query.get(number)
+    if db_vote is None:
+        result = {'error': 'ID {0} is not available.'.format(number)}
         return jsonify(**result), 404
+
+    if uservote == 'hot':
+        db_vote.ishot += 1
+        # update db
+    if uservote == 'not':
+        db_vote.isnot += 1
+        # update db
+
+    result = {
+        'id': db_vote.id,
+        'hot': db_vote.ishot,
+        'not': db_vote.isnot,
+        'uservote': uservote
+    }
+    return jsonify(**result)
 
 
 if __name__ == "__main__":
