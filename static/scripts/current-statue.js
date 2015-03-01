@@ -8,7 +8,7 @@ define(['statues'], function (statues) {
     var replaceWithNext, updateImageUrl, currentIndex,
         imageEl = document.querySelector('.image-container img.statue'),
         loaderEl = document.querySelector('.image-container .loader'),
-        hideLoader, showLoader, onImageLoad;
+        hideLoader, showLoader, onStatueLoad;
 
     hideLoader = function () {
         loaderEl.classList.add('hidden');
@@ -24,16 +24,18 @@ define(['statues'], function (statues) {
         do {
             newIndex = Math.floor(statues.length * Math.random());
         } while (newIndex === currentIndex);
+
         showLoader();
         currentIndex = newIndex;
         updateImageUrl();
     };
 
     updateImageUrl = function () {
+        var statue = statues[currentIndex];
         imageEl.onerror = replaceWithNext;
         imageEl.onload = function () {
             hideLoader();
-            onImageLoad();
+            onStatueLoad(statue);
         };
         imageEl.setAttribute('src', statues[currentIndex].IMAGEN);
     };
@@ -42,8 +44,8 @@ define(['statues'], function (statues) {
 
     return Object.create(null, {
         replaceWithNext: {value: replaceWithNext},
-        onImageLoad: {set: function (x) {
-            onImageLoad = x;
+        onStatueLoad: {set: function (x) {
+            onStatueLoad = x;
         }}
     });
 });
