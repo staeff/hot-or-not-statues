@@ -49,13 +49,17 @@ def statues():
 def statue(number):
     vote = Votes.query.get(number)
 
-    result = {
-        'id': vote.id,
-        'hot': vote.ishot,
-        'not': vote.isnot,
-    }
+    if vote:
+        result = {
+            'id': vote.id,
+            'hot': vote.ishot,
+            'not': vote.isnot,
+        }
+        return jsonify(**result)
+    else:
+        result = {'error': 'ID is not available.'}
+        return jsonify(**result), 404
 
-    return jsonify(**result)
 
 if __name__ == "__main__":
     app.run(debug=True)
