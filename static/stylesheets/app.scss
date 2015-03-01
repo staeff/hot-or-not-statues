@@ -2,6 +2,7 @@ $half-side-len: 250px;
 $side-len: 2 * $half-side-len;
 $padding: 20px;
 $total-width: $side-len + 2 * $padding;
+$border-radius: 5px;
 
 @font-face {
     font-family: "Roboto Condensed";
@@ -84,7 +85,7 @@ h1 {
     text-align: center;
     line-height: $side-len;
     padding: $padding;
-    border-radius: 5px;
+    border-radius: $border-radius;
 
     .loader {
         color: white;
@@ -120,16 +121,18 @@ h1 {
     }
 
     .info {
-        $infoPadding: 10px;
+        $infoPadding: 20px;
         font-size: 17px;
         line-height: $line-height;
         position: absolute;
         padding: $infoPadding;
-        top: -($padding + $padding-top + 2 * $line-height + 2 * $infoPadding);
-        left: $padding;
+        top: -($padding-top + 2 * $line-height + 2 * $infoPadding + 5);
+        border-radius: $border-radius;
+        left: 0;
         z-index: 100;
-        width: $side-len - 2 * $infoPadding;
-        background: rgba(100%, 100%, 100%, 0.3);
+        width: $side-len + 2 * $padding - 2 * $infoPadding;
+        background: rgba(0, 0, 0, 0.4);
+        color: white;
     }
 
     .next {

@@ -20,6 +20,7 @@ define(['current-statue'], function (currentStatue) {
         document.querySelector('.results .title').textContent = statue.TITULO;
         document.querySelector('.results .location').textContent =
             statue.UBICACION;
+        voteButtons.statue = statue;
         voteButtons.enable();
     };
 
