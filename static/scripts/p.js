@@ -3,7 +3,16 @@
 /*global define */
 
 define({
-    TITULO: 'Amores Perros',
-    UBICACION: 'Plaza  de Santa Ana',
-    IMAGEN: '/images/p.jpg'
+    statue: {
+        ID: '99999999',
+        TITULO: 'Amores Perros',
+        UBICACION: 'Plaza  de Santa Ana',
+        IMAGEN: '/images/p.jpg'
+    },
+
+    voteCount: {
+        id: 99999999,
+        hot: 100,
+        not: 0
+    }
 });
