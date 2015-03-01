@@ -91,11 +91,13 @@ h1 {
     position: absolute;
     text-align: center;
     height: 80px;
+    line-height: 80px;
     padding: 10px;
     width: 180px;
     top: -320px;
     left: 180px;
     font-size: 80px;
     background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
     color: white;
     text-transform: uppercase; }

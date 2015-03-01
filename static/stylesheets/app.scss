@@ -139,12 +139,14 @@ h1 {
         position: absolute;
         text-align: center;
         height: 2 * $half-height;
+        line-height: 2 * $half-height;
         padding: $nextPadding;
         width: 2 * $half-width;
         top: -($padding + $padding-top + $half-side-len + $half-height);
         left: $padding + $half-side-len - $half-width;
         font-size: 80px;
         background: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
         color: white;
         text-transform: uppercase;
     }
