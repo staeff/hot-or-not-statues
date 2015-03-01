@@ -48,12 +48,6 @@ h1 {
       .vote .button.not.checked {
         background-image: url(../images/checked-not-button.svg); }
 
-.results {
-  clear: both;
-  padding-top: 10px; }
-  .results.hidden {
-    visibility: hidden; }
-
 .image-container {
   width: 500px;
   height: 500px;
@@ -76,3 +70,32 @@ h1 {
     vertical-align: middle; }
     .image-container img.statue.hidden {
       display: none; }
+
+.results {
+  clear: both;
+  padding-top: 10px;
+  position: absolute; }
+  .results.hidden {
+    visibility: hidden; }
+  .results .info {
+    font-size: 17px;
+    line-height: 18px;
+    position: absolute;
+    padding: 10px;
+    top: -86px;
+    left: 20px;
+    z-index: 100;
+    width: 480px;
+    background: rgba(255, 255, 255, 0.3); }
+  .results .next {
+    position: absolute;
+    text-align: center;
+    height: 80px;
+    padding: 10px;
+    width: 180px;
+    top: -320px;
+    left: 180px;
+    font-size: 80px;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    text-transform: uppercase; }

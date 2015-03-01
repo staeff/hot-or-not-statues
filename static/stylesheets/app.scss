@@ -76,15 +76,6 @@ h1 {
     }
 }
 
-.results {
-    clear: both;
-    padding-top: 10px;
-
-    &.hidden {
-        visibility: hidden;
-    }
-}
-
 .image-container {
     width: $side-len;
     height: $side-len;
@@ -114,5 +105,47 @@ h1 {
         &.hidden {
             display: none;
         }
+    }
+}
+
+.results {
+    $padding-top: 10px;
+    $line-height: 18px;
+    clear: both;
+    padding-top: $padding-top;
+    position: absolute;
+
+    &.hidden {
+        visibility: hidden;
+    }
+
+    .info {
+        $infoPadding: 10px;
+        font-size: 17px;
+        line-height: $line-height;
+        position: absolute;
+        padding: $infoPadding;
+        top: -($padding + $padding-top + 2 * $line-height + 2 * $infoPadding);
+        left: $padding;
+        z-index: 100;
+        width: $side-len - 2 * $infoPadding;
+        background: rgba(100%, 100%, 100%, 0.3);
+    }
+
+    .next {
+        $nextPadding: 10px;
+        $half-width: 90px;
+        $half-height: 40px;
+        position: absolute;
+        text-align: center;
+        height: 2 * $half-height;
+        padding: $nextPadding;
+        width: 2 * $half-width;
+        top: -($padding + $padding-top + $half-side-len + $half-height);
+        left: $padding + $half-side-len - $half-width;
+        font-size: 80px;
+        background: rgba(0, 0, 0, 0.4);
+        color: white;
+        text-transform: uppercase;
     }
 }
