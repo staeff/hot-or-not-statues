@@ -11,7 +11,7 @@ env.pip = env.base_dir + '/venv/bin/pip'
 @task
 def deploy():
     rsync_project(env.base_dir, './', exclude=['.git', '.gitignore', '*.pyc',
-                                               '.idea'])
+                                               '.idea', 'app.db'])
 
     pip_cmd = '{0} install -U -r {1}/prod-requirements.txt'.format(
         env.pip, env.base_dir)
@@ -21,3 +21,7 @@ def deploy():
     # TODO graceful reloading
     # http://uwsgi-docs.readthedocs.org/en/latest/articles/TheArtOfGracefulReloading.html
     run('sudo /usr/bin/service uwsgi reload')
+
+    # fix messed up permissions (TODO figure out wtf)
+    run('chmod 777 /srv/honfs')
+    run('sudo /bin/chown www-data:www-data /srv/honfs/app.db')
