@@ -147,8 +147,9 @@ h1 {
         line-height: 2 * $half-height;
         padding: $nextPadding;
         width: 2 * $half-width;
-        top: -($padding + $padding-top + $half-side-len + $half-height);
-        left: $padding + $half-side-len - $half-width;
+        top: -($padding + $padding-top + $half-side-len + $half-height +
+               $nextPadding);
+        left: $padding + $half-side-len - $half-width - $nextPadding;
         font-size: 80px;
         background: rgba(0, 0, 0, 0.4);
         border-radius: 10px;
