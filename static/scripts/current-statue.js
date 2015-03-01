@@ -47,8 +47,8 @@ define(['statues-loader', 'p'], function (statuesLoader, p) {
         imageEl.setAttribute('src', statue.IMAGEN);
     };
 
-    statuesLoader.onLoad = function () {
-        statues = JSON.parse(this.response).statues;
+    statuesLoader.onLoad = function (response) {
+        statues = response.statues;
         replaceWithNext();
     };
 

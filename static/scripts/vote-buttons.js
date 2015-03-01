@@ -3,8 +3,8 @@
 /*global define */
 
 define([
-    './results', './vote-count-loader'
-], function (results, voteCountLoader) {
+    './results', './vote-count-loader', './vote-poster'
+], function (results, voteCountLoader, votePoster) {
     'use strict';
 
     var onVote, check, disable, buttonEl, onClick, uncheck, uncheckButton, o,
@@ -24,15 +24,17 @@ define([
     };
 
     formattedVoteCount = function (type) {
-        if (voteCount.id !== statue.id) {
-            return '\u2713'; // no data available
+        if (!voteCount || voteCount.id - statue.ID !== 0) {
+            return '?%'; // no data available
         }
         return Math.round(100 * voteCount[type] /
                           (voteCount.hot + voteCount.not)) + '%';
     };
 
     incrementVoteCount = function (type) {
-        if (voteCount.id === statue.id) {
+        votePoster.post(statue, type);
+
+        if (voteCount && voteCount.id - statue.ID === 0) {
             voteCount[type] += 1;
         }
     };
@@ -82,7 +84,6 @@ define([
 
     onVoteCountLoad = function (x) {
         voteCount = x;
-        voteCount.id = statue.id; // TODO: just for testing!
     };
 
     ['not', 'hot'].forEach(function (type) {
