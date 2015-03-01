@@ -2,7 +2,7 @@ from fabric.api import task, env, run
 from fabric.contrib.project import rsync_project
 
 
-env.hosts = ['128.199.51.76']
+env.hosts = ['honfs.wtf']
 env.user = 'honfs'
 env.base_dir = '/srv/honfs'
 env.pip = env.base_dir + '/venv/bin/pip'

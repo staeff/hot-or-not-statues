@@ -1,3 +1,8 @@
+body {
+    background: white;
+    padding: 10px;
+}
+
 .button {
     border: 1px solid gray;
     cursor: pointer;
@@ -45,6 +50,37 @@
     }
 }
 
-img.statue {
-    width: 500px;
+.image-container {
+    $half-side-len: 250px;
+    $side-len: 2 * $half-side-len;
+    $padding: 20px;
+    width: $side-len;
+    height: $side-len;
+    overflow: hidden;
+    background: black;
+    text-align: center;
+    line-height: $side-len;
+    padding: $padding;
+    border-radius: $padding;
+
+    .loader {
+        color: white;
+        height: $side-len + $padding;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    img.statue {
+        text-align: center;
+        left: $half-side-len;
+        max-width: $side-len;
+        max-height: $side-len;
+        vertical-align: middle;
+
+        &.hidden {
+            display: none;
+        }
+    }
 }

@@ -5,13 +5,14 @@
 define(['./results'], function (results) {
     'use strict';
 
-    var onVote, check, disable, buttonEl, onClick, reset, resetButton, o;
+    var onVote, check, disable, buttonEl, onClick, uncheck, uncheckButton, o,
+        disableButton, enableButton, enable;
 
     buttonEl = function (type) {
         return document.querySelector('.vote .' + type + '.button');
     };
 
-    disable = function (type) {
+    disableButton = function (type) {
         buttonEl(type).classList.add('disabled');
     };
 
@@ -32,14 +33,29 @@ define(['./results'], function (results) {
         }
     };
 
-    resetButton = function (type) {
+    uncheckButton = function (type) {
         buttonEl(type).classList.remove('checked');
+    };
+
+    uncheck = function () {
+        ['not', 'hot'].forEach(function (type) {
+            uncheckButton(type);
+        });
+    };
+
+    disable = function () {
+        ['not', 'hot'].forEach(function (type) {
+            disableButton(type);
+        });
+    };
+
+    enableButton = function (type) {
         buttonEl(type).classList.remove('disabled');
     };
 
-    reset = function () {
+    enable = function () {
         ['not', 'hot'].forEach(function (type) {
-            resetButton(type);
+            enableButton(type);
         });
     };
 
@@ -55,7 +71,9 @@ define(['./results'], function (results) {
     };
 
     o = {
-        reset: reset
+        uncheck: uncheck,
+        disable: disable,
+        enable: enable
     };
 
     results.voteButtons = o;

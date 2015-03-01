@@ -1,3 +1,7 @@
+body {
+  background: white;
+  padding: 10px; }
+
 .button {
   border: 1px solid gray;
   cursor: pointer;
@@ -28,5 +32,25 @@
   .results.hidden {
     visibility: hidden; }
 
-img.statue {
-  width: 500px; }
+.image-container {
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  background: black;
+  text-align: center;
+  line-height: 500px;
+  padding: 20px;
+  border-radius: 20px; }
+  .image-container .loader {
+    color: white;
+    height: 520px; }
+    .image-container .loader.hidden {
+      display: none; }
+  .image-container img.statue {
+    text-align: center;
+    left: 250px;
+    max-width: 500px;
+    max-height: 500px;
+    vertical-align: middle; }
+    .image-container img.statue.hidden {
+      display: none; }
