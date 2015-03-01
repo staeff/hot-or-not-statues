@@ -9,6 +9,10 @@ users vote them "Hot" or "Not".
 Development hints
 =================
 
+  * To initialize the database:
+
+        $ python initdb.py
+
   * To keep CSS up to date:
 
         $ cd static/stylesheets
