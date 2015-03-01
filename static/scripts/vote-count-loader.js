@@ -5,21 +5,19 @@
 define(function () {
     'use strict';
 
-    var load, onLoad, request = new XMLHttpRequest();
+    var load, request = new XMLHttpRequest();
 
     load = function (statue) {
-        console.log('loading statue ' + statue.ID + '…');
-        onLoad({
-            id: 332,
-            hot: 0,
-            not: 0
-        });
+        request.open('get', 'http://honfs.wtf/statues/' + statue.ID, true);
+        request.send();
     };
 
     return Object.create(null, {
         load: {value: load},
         onLoad: {set: function (x) {
-            onLoad = x;
+            request.onload = function () {
+                x(JSON.parse(this.response));
+            };
         }}
     });
 });

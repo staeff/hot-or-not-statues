@@ -14,7 +14,9 @@ define(function () {
 
     return Object.create(null, {
         onLoad: {set: function (x) {
-            request.onload = x;
+            request.onload = function () {
+                x(JSON.parse(this.response));
+            };
         }},
         load: {value: load}
     });
