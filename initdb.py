@@ -5,7 +5,8 @@ import csv, sqlite3
 
 con = sqlite3.connect("app.db")
 cur = con.cursor()
-cur.execute("CREATE TABLE IF NOT EXISTS votes (id integer not null, ishot integer, isnot integer);")
+cur.execute("CREATE TABLE IF NOT EXISTS votes (id integer primary key, \
+             ishot integer, isnot integer);")
 
 with open('data/mobiliario_monumental.csv','rb') as fin:
     # csv.DictReader uses first line in file for column headings by default
@@ -14,3 +15,4 @@ with open('data/mobiliario_monumental.csv','rb') as fin:
 
 cur.executemany("INSERT INTO votes (id, ishot, isnot) VALUES (?, ?, ?);", to_db)
 con.commit()
+con.close()
