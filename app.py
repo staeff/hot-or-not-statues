@@ -41,6 +41,30 @@ def parse(raw_file='data/mobiliario_monumental.csv', delimiter=','):
 
     return parsed_data
 
+
+@app.after_request
+def add_cors(resp):
+    """
+    Ensure all responses have the CORS headers. This ensures any failures are
+    also accessible by the client.
+    Source: http://mortoray.com/2014/04/09/allowing-unlimited-access-with-cors/
+    """
+    resp.headers['Access-Control-Allow-Origin'] = request.headers.get(
+        'Origin', '*')
+
+    resp.headers['Access-Control-Allow-Credentials'] = 'true'
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET'
+
+    resp.headers['Access-Control-Allow-Headers'] = request.headers.get(
+        'Access-Control-Request-Headers', 'Authorization')
+
+    # set low for debugging
+    if app.debug:
+        resp.headers['Access-Control-Max-Age'] = '1'
+
+    return resp
+
+
 @app.route('/statues/')
 def statues():
     return jsonify(statues=parse())
@@ -75,4 +99,14 @@ def statue(number):
 
 
 if __name__ == "__main__":
+    from flask import send_from_directory, send_file
+
+    @app.route('/')
+    def index():
+        return send_file('static/app.html')
+
+    @app.route('/<path:path>')
+    def static_files(path):
+        return send_from_directory('static', path)
+
     app.run(debug=True)

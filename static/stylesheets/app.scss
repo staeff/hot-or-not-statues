@@ -1,67 +1,90 @@
+$half-side-len: 250px;
+$side-len: 2 * $half-side-len;
+$padding: 20px;
+$total-width: $side-len + 2 * $padding;
+
+@font-face {
+    font-family: "Roboto Condensed";
+    src: url("../vendor/Roboto-Condensed/RobotoCondensed-Bold.ttf");
+    font-weight: bold;
+}
+
 body {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
     background: white;
     padding: 10px;
 }
 
+h1 {
+    $width: 100px;
+    margin-left: $total-width - $width;
+    background-image: url(../images/hot-or-not-logo.svg);
+    background-size: $width;
+    width: $width;
+    height: 0.185 * $width;
+    color: transparent;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
 .button {
-    border: 1px solid gray;
     cursor: pointer;
-    padding: 0 5px;
     float: left;
 }
 
 .vote {
     list-style: none;
+    margin-top: 15px;
 
-    .checked.button {
-        background: white;
-    }
+    .button {
+        $width: 250px;
+        $height: 0.48 * $width;
+        color: transparent;
+        overflow: hidden;
+        width: $width;
+        height: $height;
+        background-size: $width;
+        line-height: $height - 5px;
+        font-size: 80px;
 
-    .disabled.button {
-        cursor: default;
-    }
-
-    .hot {
-        background: red;
-        color: white;
+        &.disabled {
+            cursor: default;
+        }
 
         &.checked {
-            color: red;
+            color: white;
+            text-align: center;
         }
-    }
 
-    .not {
-        margin-left: 10px;
-        background: blue;
-        color: white;
+        &.hot {
+            background-image: url(../images/hot-button.svg);
 
-        &.checked {
-            color: blue;
+            &.checked {
+                background-image: url(../images/checked-hot-button.svg);
+            }
         }
-    }
-}
 
-.results {
-    clear: both;
-    padding-top: 10px;
+        &.not {
+            background-image: url(../images/not-button.svg);
+            margin-left: $total-width - 2 * $width;
 
-    &.hidden {
-        visibility: hidden;
+            &.checked {
+                background-image: url(../images/checked-not-button.svg);
+            }
+        }
     }
 }
 
 .image-container {
-    $half-side-len: 250px;
-    $side-len: 2 * $half-side-len;
-    $padding: 20px;
     width: $side-len;
     height: $side-len;
     overflow: hidden;
-    background: black;
+    background: #222;
     text-align: center;
     line-height: $side-len;
     padding: $padding;
-    border-radius: $padding;
+    border-radius: 5px;
 
     .loader {
         color: white;
@@ -82,5 +105,49 @@ body {
         &.hidden {
             display: none;
         }
+    }
+}
+
+.results {
+    $padding-top: 10px;
+    $line-height: 18px;
+    clear: both;
+    padding-top: $padding-top;
+    position: absolute;
+
+    &.hidden {
+        visibility: hidden;
+    }
+
+    .info {
+        $infoPadding: 10px;
+        font-size: 17px;
+        line-height: $line-height;
+        position: absolute;
+        padding: $infoPadding;
+        top: -($padding + $padding-top + 2 * $line-height + 2 * $infoPadding);
+        left: $padding;
+        z-index: 100;
+        width: $side-len - 2 * $infoPadding;
+        background: rgba(100%, 100%, 100%, 0.3);
+    }
+
+    .next {
+        $nextPadding: 10px;
+        $half-width: 90px;
+        $half-height: 40px;
+        position: absolute;
+        text-align: center;
+        height: 2 * $half-height;
+        line-height: 2 * $half-height;
+        padding: $nextPadding;
+        width: 2 * $half-width;
+        top: -($padding + $padding-top + $half-side-len + $half-height);
+        left: $padding + $half-side-len - $half-width;
+        font-size: 80px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        color: white;
+        text-transform: uppercase;
     }
 }

@@ -23,8 +23,8 @@ define(['./results'], function (results) {
     onVote = function (type) {
         check(type);
         results.show();
-        disable('hot');
-        disable('not');
+        disable();
+        buttonEl(type).textContent = '\u2713';
     };
 
     onClick = function (type) {
@@ -65,10 +65,6 @@ define(['./results'], function (results) {
                 onClick(type);
             };
     });
-
-    document.querySelector('.vote .hot.button').onclick = function () {
-        onClick('hot');
-    };
 
     o = {
         uncheck: uncheck,
