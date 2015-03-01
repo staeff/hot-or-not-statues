@@ -62,4 +62,14 @@ def statue(number):
 
 
 if __name__ == "__main__":
+    from flask import send_from_directory, send_file
+
+    @app.route('/')
+    def index():
+        return send_file('static/app.html')
+
+    @app.route('/<path:path>')
+    def static_files(path):
+        return send_from_directory('static', path)
+
     app.run(debug=True)
