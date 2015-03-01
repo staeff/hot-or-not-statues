@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask.ext.sqlalchemy import SQLAlchemy
 import csv
 import os
@@ -40,6 +40,30 @@ def parse(raw_file='data/mobiliario_monumental.csv', delimiter=','):
     opened_file.close()
 
     return parsed_data
+
+
+@app.after_request
+def add_cors(resp):
+    """
+    Ensure all responses have the CORS headers. This ensures any failures are
+    also accessible by the client.
+    Source: http://mortoray.com/2014/04/09/allowing-unlimited-access-with-cors/
+    """
+    resp.headers['Access-Control-Allow-Origin'] = request.headers.get(
+        'Origin', '*')
+
+    resp.headers['Access-Control-Allow-Credentials'] = 'true'
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET'
+
+    resp.headers['Access-Control-Allow-Headers'] = request.headers.get(
+        'Access-Control-Request-Headers', 'Authorization')
+
+    # set low for debugging
+    if app.debug:
+        resp.headers['Access-Control-Max-Age'] = '1'
+
+    return resp
+
 
 @app.route('/statues/')
 def statues():
