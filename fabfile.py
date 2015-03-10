@@ -11,7 +11,7 @@ env.pip = env.base_dir + '/venv/bin/pip'
 @task
 def deploy():
     rsync_project(env.base_dir, './', exclude=['.git', '.gitignore', '*.pyc',
-                                               '.idea', 'app.db'])
+                                               '.idea', 'app.db', 'raw_images/'])
 
     pip_cmd = '{0} install -U -r {1}/prod-requirements.txt'.format(
         env.pip, env.base_dir)
