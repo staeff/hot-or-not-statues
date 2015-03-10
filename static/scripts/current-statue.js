@@ -43,7 +43,7 @@ define(['statues-loader', 'p'], function (statuesLoader, p) {
             hideLoader();
             onStatueLoad(statue);
         };
-        imageEl.setAttribute('src', statue.IMAGEN);
+        imageEl.setAttribute('src', '/images/statues/' + statue.ID + '.jpg');
     };
 
     statuesLoader.onLoad = function (response) {
