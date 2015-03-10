@@ -8,7 +8,7 @@ define(function () {
     var request = new XMLHttpRequest(), load;
 
     load = function () {
-        request.open('get', 'http://honfs.wtf/statues/', true);
+        request.open('get', '/statues/', true);
         request.send();
     };
 

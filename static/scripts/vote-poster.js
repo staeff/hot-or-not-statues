@@ -8,7 +8,7 @@ define(function () {
     var post, request = new XMLHttpRequest();
 
     post = function (statue, type) {
-        request.open('post', 'http://honfs.wtf/statues/' + statue.ID, true);
+        request.open('post', '/statues/' + statue.ID, true);
         request.setRequestHeader("Content-type", "application/json");
         request.send(JSON.stringify({
             'vote': type
