@@ -20,26 +20,21 @@ class Votes(db.Model):
 def parse(raw_file='data/mobiliario_monumental.csv', delimiter=','):
     """Parses a raw CSV file to a JSON-like object"""
 
-    # Open CSV file
-    opened_file = open(raw_file)
+    with open(raw_file, 'r') as infile:
 
-    # Read the CSV data
-    csv_data = csv.reader(opened_file, delimiter=delimiter)
+        parsed_data = []
 
-    # Setup an empty list
-    parsed_data = []
+        # Read the CSV data
+        csv_data = csv.reader(infile, delimiter=delimiter)
 
-    # Skip over the first line of the file for the headers
-    fields = csv_data.next()
+        # get the header titles from first line file
+        fields = csv_data.next()
 
-    # Iterate over each row of the csv file, zip together field -> value
-    for row in csv_data:
-        parsed_data.append(dict(zip(fields, row)))
+        # Iterate over each row of the csv file, zip together field -> value
+        for row in csv_data:
+            parsed_data.append(dict(zip(fields, row)))
 
-    # Close the CSV file
-    opened_file.close()
-
-    return parsed_data
+        return parsed_data
 
 
 @app.after_request
